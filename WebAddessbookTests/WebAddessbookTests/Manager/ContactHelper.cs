@@ -6,9 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using WebAddessbookTests;
 
-namespace WebAddessbookTests
+namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
     {
@@ -51,11 +50,8 @@ namespace WebAddessbookTests
 
         public ContactHelper FillContactForm(ContactData contact)
         {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
-            driver.FindElement(By.Name("nickname")).Clear();
+            Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("lastname"), contact.LastName);
             return this;
         }
 
@@ -98,6 +94,22 @@ namespace WebAddessbookTests
         public ContactHelper InitContactModification()
         {
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            return this;
+        }
+
+        public bool IsContactExist()
+        {
+            return IsElementPresent(By.Name("entry"));
+        }
+
+        public ContactHelper CheckAvailabilityContactElement()
+        {
+            manager.Navigator.GoToHomePage();
+            if (! IsContactExist())
+            {
+                ContactData contact = new ContactData("", "");
+                CreateContact(contact);
+            }
             return this;
         }
     }

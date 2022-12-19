@@ -5,17 +5,19 @@ using System.Threading;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework;
 
-namespace WebAddessbookTests
+namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : TestBase
+    public class ContactCreationTests : AuthTestBase
     {
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contact = new ContactData("FirstName", "LastName");
+            ContactData contact = new ContactData("пјр", "Ыртр");
             app.Contact.CreateContact(contact);
         }
+
+        [Test]
         public void EmptyContactCreationTest()
         {
             ContactData contact = new ContactData("", "");

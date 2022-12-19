@@ -7,12 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebAddessbookTests
+namespace WebAddressbookTests
 {
     public class NavigationHelper : HelperBase
     {
         private string baseURL;
-
 
         public NavigationHelper(ApplicationManager manager, string baseURL)
             : base(manager)
@@ -21,11 +20,20 @@ namespace WebAddessbookTests
         }
         public void GoToHomePage()
         {
+            if (driver.Url == baseURL + "/addressbook/")
+            {
+                return;
+            }
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
         }
 
         public void GoToGroupsPage()
         {
+            if (driver.Url == baseURL + "/addressbook/"
+                && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("groups")).Click();
         }
     }

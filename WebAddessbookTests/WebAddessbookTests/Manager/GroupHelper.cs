@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebAddessbookTests;
 
-namespace WebAddessbookTests
+namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
@@ -54,12 +53,9 @@ namespace WebAddessbookTests
 
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
 
@@ -103,6 +99,22 @@ namespace WebAddessbookTests
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
+        }
+      
+        public GroupHelper CheckAvailabilityGroupElement()
+        {
+            manager.Navigator.GoToGroupsPage();
+            if (! IsGroupExist())
+            {
+                GroupData group = new GroupData("");
+                Create(group);
+            }
+            return this;
+        }
+
+        public bool IsGroupExist()
+        {
+            return IsElementPresent(By.ClassName("group"));
         }
     }
 }
