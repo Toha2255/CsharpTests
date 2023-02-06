@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -16,15 +17,19 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            if (!app.Contact.IsContactExist())
-            {
-                ContactData contact = new ContactData("Йасо", "Сал");
-                app.Contact.CreateContact(contact);
-            }
-
+            int p = 0;
             app.Contact.CheckAvailabilityContactElement();
-            app.Navigator.GoToHomePage();
-            app.Contact.RemoveContact(1);
+
+            List<ContactData> oldContacts = app.Contact.GetContactList();
+
+            app.Contact.RemoveContact(p);
+
+            //Assert.AreEqual(oldContacts.Count - 1, app.Contact.GetContactCount());
+
+            List<ContactData> newContacts = app.Contact.GetContactList();
+
+            oldContacts.RemoveAt(p);
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

@@ -2,7 +2,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ApplicationManager
+    public class ApplicationManager 
     {
         protected IWebDriver driver;
         protected string baseURL;
@@ -54,6 +53,7 @@ namespace WebAddressbookTests
             }
             return app.Value;
         }
+ 
 
         public IWebDriver Driver
         {
